@@ -3,11 +3,11 @@ import { useState } from "react";
 import "./App.css";
 
 function App() {
-  const [query, setQuery] = useState(""); // Kullanıcıdan alınan şehir/ülke adı
-  const [weather, setWeather] = useState<any>(null); // Anlık hava durumu verisi
-  const [forecast, setForecast] = useState<any>(null); // Haftalık hava durumu verisi
-  const [error, setError] = useState<string | null>(null); // Hata durumu
-  const [location, setLocation] = useState<{ name: string; country: string } | null>(null); // Konum bilgisi
+  const [query, setQuery] = useState(""); 
+  const [weather, setWeather] = useState<any>(null);
+  const [forecast, setForecast] = useState<any>(null); 
+  const [error, setError] = useState<string | null>(null); 
+  const [location, setLocation] = useState<{ name: string; country: string } | null>(null); 
 
   const fetchWeather = async (location: string) => {
     try {
@@ -15,7 +15,7 @@ function App() {
         "https://api.weatherapi.com/v1/forecast.json",
         {
           params: {
-            key: "36613b6f51f84faf95a190803240908", // API anahtarınızı buraya yazın
+            key: "36613b6f51f84faf95a190803240908", 
             q: location,
             days: 7,
             aqi: "no",
@@ -23,15 +23,15 @@ function App() {
         }
       );
 
-      // API'den gelen veriyi set ediyoruz
-      setWeather(response.data.current); // Anlık hava durumu
-      setForecast(response.data.forecast.forecastday); // Haftalık hava durumu
+      
+      setWeather(response.data.current);
+      setForecast(response.data.forecast.forecastday); 
       setLocation({
         name: response.data.location.name,
         country: response.data.location.country,
-      }); // Konum bilgisi
-      setError(null); // Hata varsa temizle
-      console.log(response.data); // API yanıtını kontrol et
+      }); 
+      setError(null); 
+      console.log(response.data); 
     } catch (error: any) {
       setError(`Hata: ${error.response?.data?.error?.message || error.message}`);
       console.error("Hata:", error.response?.data || error.message);
