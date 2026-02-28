@@ -1,57 +1,155 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
 
 body {
 	margin: 0;
 	width: 100%;
-	height: 100vh;
+	min-height: 100vh;
 	font-family: 'Montserrat', sans-serif;
-	background-color: #343d4b;
+	background: linear-gradient(160deg, #2d3644 0%, #1e2530 50%, #161c26 100%);
 	display: flex;
-margin-top: 50px;
+	padding-top: 40px;
 	justify-content: center;
-	
+	align-items: flex-start;
+	position: relative;
 }
 
-.h1-1 {
-	color: #f3f3f3;
-	margin-left: 50px;
-	margin-bottom: 40px;
+/* Hareketli arka plan canvas - içeriğin arkasında */
+.background-scene {
+	position: fixed;
+	inset: 0;
+	z-index: 0;
+	pointer-events: none;
+	display: block;
+	width: 100%;
+	height: 100%;
 }
 
-.input-no-border {
+.app-wrap {
+	position: relative;
+	z-index: 1;
+	width: 100%;
+	max-width: 460px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 0 20px;
+}
+
+/* ----- Arama bölümü ----- */
+.search-header {
+	width: 100%;
+	margin-bottom: 24px;
+}
+
+.search-title {
+	color: #f0f4f8;
+	font-size: 1.75rem;
+	font-weight: 800;
+	letter-spacing: -0.02em;
+	margin: 0 0 20px 0;
+	text-align: center;
+	text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.search-form {
+	display: flex;
+	align-items: center;
+	gap: 0;
+	background: rgba(255, 255, 255, 0.08);
+	border: 1px solid rgba(255, 255, 255, 0.12);
+	border-radius: 14px;
+	padding: 6px 6px 6px 18px;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+	transition: box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.search-form:focus-within {
+	border-color: rgba(100, 180, 255, 0.5);
+	box-shadow: 0 4px 24px rgba(100, 180, 255, 0.15);
+}
+
+.search-input {
+	flex: 1;
 	border: none;
 	outline: none;
-	background-color: transparent;
+	background: transparent;
 	font-family: inherit;
-	width: 100%;
-	border-bottom: 2px solid #9b9b9b;
-	font-size: 1.3rem;
+	font-size: 1rem;
+	font-weight: 500;
 	color: #fff;
-	padding: 7px 0;
-	transition: border-color 0.2s;
-	margin-left: 30px;
+	padding: 12px 8px 12px 0;
+	min-width: 0;
+}
+
+.search-input::placeholder {
+	color: rgba(255, 255, 255, 0.45);
+}
+
+.search-btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 44px;
+	height: 44px;
+	border: none;
+	border-radius: 10px;
+	background: linear-gradient(135deg, #4a9eff 0%, #357abd 100%);
+	color: #fff;
+	cursor: pointer;
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+	flex-shrink: 0;
+}
+
+.search-btn:hover {
+	transform: scale(1.05);
+	box-shadow: 0 4px 16px rgba(74, 158, 255, 0.4);
+}
+
+.search-btn:active {
+	transform: scale(0.98);
+}
+
+.search-icon {
+	width: 20px;
+	height: 20px;
+}
+
+.error-message {
+	color: #ff8a80;
+	font-size: 0.9rem;
 	text-align: center;
+	margin: 12px 0 0 0;
+	padding: 10px 16px;
+	background: rgba(255, 100, 100, 0.12);
+	border-radius: 10px;
+	border: 1px solid rgba(255, 100, 100, 0.25);
 }
 
 .card {
-	width: 20%;
-	max-width: 400px;
-	position: absolute;
+	width: 100%;
+	max-width: 420px;
+	position: relative;
 	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2),
 		0px 25px 60px -10px rgba(0, 0, 0, 0.3);
 	border-radius: 5px;
-	overflow: hidden;
+	overflow: visible;
 	background-color: #19283d;
 	text-align: center;
 	margin-top: 50px;
-	padding: 20px; 
-	height: auto; 
+	padding: 20px;
+	height: auto;
 }
 
 .c1 {
 	color: #f3f3f3;
 	font-size: 70px;
 	margin: 0;
+}
+
+.card-condition {
+	color: rgba(243, 243, 243, 0.85);
+	font-size: 0.95rem;
+	margin: 4px 0 0 0;
 }
 
 .white-1 {
@@ -61,18 +159,57 @@ margin-top: 50px;
 .weekly-forecast {
 	margin-top: 20px;
 	display: flex;
-	flex-direction: row;
-	align-items: center;
+	flex-direction: column;
+	gap: 12px;
 	color: #f3f3f3;
-	font-size: 10px;
+	font-size: 14px;
+	width: 100%;
 }
 
 .weekly-day {
-	margin-bottom: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	padding: 10px 14px;
+	background-color: rgba(255, 255, 255, 0.06);
+	border-radius: 8px;
+	border: 1px solid rgba(255, 255, 255, 0.08);
 }
-.date-1{
-	color:  #f3f3f3;
+
+.weekly-day-date {
+	font-weight: 600;
+	min-width: 100px;
+	text-align: left;
+	display: flex;
+	align-items: center;
+	gap: 8px;
 }
-.pb-7{
+
+.weekly-day-badge {
+	font-size: 0.7rem;
+	font-weight: 700;
+	color: #4a9eff;
+	background: rgba(74, 158, 255, 0.2);
+	padding: 2px 6px;
+	border-radius: 4px;
+}
+
+.weekly-day-temp {
+	font-weight: 700;
+	font-size: 1.1rem;
+}
+
+.weekly-day-icon {
+	width: 32px;
+	height: 32px;
+	flex-shrink: 0;
+}
+
+.date-1 {
+	color: #f3f3f3;
+}
+
+.pb-7 {
 	margin-bottom: 10px;
 }
