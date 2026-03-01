@@ -1,11 +1,11 @@
 import { useEffect, useRef } from "react";
 
-// Mevcut tema renkleri (CSS)
+// Tema renkleri
 const COLORS = [
-  "rgba(45, 54, 68, 0.8)",   // #2d3644
-  "rgba(61, 74, 92, 0.75)",  // #3d4a5c
-  "rgba(74, 122, 184, 0.6)", // #4a7ab8
-  "rgba(30, 37, 48, 0.85)",  // #1e2530
+  "rgba(45, 54, 68, 0.8)",
+  "rgba(61, 74, 92, 0.75)",
+  "rgba(74, 122, 184, 0.6)",
+  "rgba(30, 37, 48, 0.85)",
 ];
 
 const PARTICLE_COUNT = 280;
@@ -24,11 +24,8 @@ export default function BackgroundScene() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+    const canvas = canvasRef.current!;
+    const ctx = canvas.getContext("2d")!;
 
     let animationId: number;
     let start = 0;
@@ -36,10 +33,15 @@ export default function BackgroundScene() {
 
     function resize() {
       const dpr = Math.min(window.devicePixelRatio, 2);
+
+      // scale stacking bug önleme
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+
       canvas.width = window.innerWidth * dpr;
       canvas.height = window.innerHeight * dpr;
       canvas.style.width = window.innerWidth + "px";
       canvas.style.height = window.innerHeight + "px";
+
       ctx.scale(dpr, dpr);
     }
 
@@ -47,6 +49,7 @@ export default function BackgroundScene() {
       particles.length = 0;
       const w = window.innerWidth;
       const h = window.innerHeight;
+
       for (let i = 0; i < PARTICLE_COUNT; i++) {
         particles.push({
           x: Math.random() * w,
@@ -61,6 +64,7 @@ export default function BackgroundScene() {
 
     function animate(t: number) {
       animationId = requestAnimationFrame(animate);
+
       if (!start) start = t;
       const time = (t - start) * 0.001 * SPEED;
 
@@ -71,8 +75,10 @@ export default function BackgroundScene() {
 
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
+
         p.vx = Math.sin(time + i * 0.01) * 0.4;
         p.vy = Math.cos(time * 0.7 + i * 0.008) * 0.3;
+
         p.x += p.vx;
         p.y += p.vy;
 
@@ -86,20 +92,28 @@ export default function BackgroundScene() {
       }
     }
 
+    function handleResize() {
+      resize();
+      init();
+    }
+
     resize();
     init();
     animationId = requestAnimationFrame(animate);
 
-    window.addEventListener("resize", () => {
-      resize();
-      init();
-    });
+    window.addEventListener("resize", handleResize);
 
     return () => {
       cancelAnimationFrame(animationId);
-      window.removeEventListener("resize", resize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
-  return <canvas ref={canvasRef} className="background-scene" aria-hidden="true" />;
+  return (
+    <canvas
+      ref={canvasRef}
+      className="background-scene"
+      aria-hidden="true"
+    />
+  );
 }
