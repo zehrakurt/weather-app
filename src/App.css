@@ -4,13 +4,16 @@ body {
 	margin: 0;
 	width: 100%;
 	min-height: 100vh;
+	min-height: 100dvh;
 	font-family: 'Montserrat', sans-serif;
 	background: linear-gradient(160deg, #2d3644 0%, #1e2530 50%, #161c26 100%);
 	display: flex;
-	padding-top: 40px;
+	padding: 24px 0;
 	justify-content: center;
 	align-items: flex-start;
 	position: relative;
+	box-sizing: border-box;
+	overflow-x: hidden;
 }
 
 /* Hareketli arka plan canvas - içeriğin arkasında */
@@ -24,15 +27,21 @@ body {
 	height: 100%;
 }
 
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
 .app-wrap {
 	position: relative;
 	z-index: 1;
 	width: 100%;
-	max-width: 460px;
+	max-width: 520px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding: 0 20px;
+	padding: 0 16px;
 }
 
 /* ----- Arama bölümü ----- */
@@ -127,15 +136,15 @@ body {
 
 .card {
 	width: 100%;
-	max-width: 420px;
+	max-width: 100%;
 	position: relative;
 	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2),
 		0px 25px 60px -10px rgba(0, 0, 0, 0.3);
-	border-radius: 5px;
+	border-radius: 12px;
 	overflow: visible;
 	background-color: #19283d;
 	text-align: center;
-	margin-top: 50px;
+	margin-top: 32px;
 	padding: 20px;
 	height: auto;
 }
@@ -212,4 +221,175 @@ body {
 
 .pb-7 {
 	margin-bottom: 10px;
+}
+
+/* ========== RESPONSIVE MEDIA QUERIES ========== */
+
+/* Tablet & wider phones (481px – 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+	body {
+		padding: 32px 0;
+	}
+
+	.app-wrap {
+		max-width: 500px;
+		padding: 0 24px;
+	}
+
+	.search-title {
+		font-size: 1.6rem;
+	}
+
+	.c1 {
+		font-size: 60px;
+	}
+}
+
+/* Mobile phones (max 480px) */
+@media (max-width: 480px) {
+	body {
+		padding: 16px 0;
+	}
+
+	.app-wrap {
+		max-width: 100%;
+		padding: 0 14px;
+	}
+
+	.search-header {
+		margin-bottom: 16px;
+	}
+
+	.search-title {
+		font-size: 1.35rem;
+		margin-bottom: 14px;
+	}
+
+	.search-form {
+		padding: 4px 4px 4px 14px;
+		border-radius: 12px;
+	}
+
+	.search-input {
+		font-size: 0.9rem;
+		padding: 10px 6px 10px 0;
+	}
+
+	.search-btn {
+		width: 40px;
+		height: 40px;
+		border-radius: 8px;
+	}
+
+	.search-icon {
+		width: 18px;
+		height: 18px;
+	}
+
+	.card {
+		margin-top: 20px;
+		padding: 16px 12px;
+		border-radius: 10px;
+	}
+
+	.card h2 {
+		font-size: 1rem;
+	}
+
+	.card p {
+		font-size: 0.9rem;
+	}
+
+	.c1 {
+		font-size: 48px;
+	}
+
+	.card-condition {
+		font-size: 0.85rem;
+	}
+
+	.weekly-forecast {
+		gap: 8px;
+		font-size: 13px;
+	}
+
+	.weekly-day {
+		padding: 8px 10px;
+		gap: 8px;
+	}
+
+	.weekly-day-date {
+		min-width: 80px;
+		font-size: 0.8rem;
+	}
+
+	.weekly-day-badge {
+		font-size: 0.6rem;
+		padding: 1px 4px;
+	}
+
+	.weekly-day-temp {
+		font-size: 0.95rem;
+	}
+
+	.weekly-day-icon {
+		width: 28px;
+		height: 28px;
+	}
+}
+
+/* Very small phones (max 380px) */
+@media (max-width: 380px) {
+	.app-wrap {
+		padding: 0 10px;
+	}
+
+	.search-title {
+		font-size: 1.2rem;
+	}
+
+	.c1 {
+		font-size: 40px;
+	}
+
+	.card {
+		padding: 12px 8px;
+	}
+
+	.weekly-day {
+		padding: 6px 8px;
+	}
+
+	.weekly-day-date {
+		min-width: 70px;
+		font-size: 0.75rem;
+	}
+
+	.weekly-day-temp {
+		font-size: 0.85rem;
+	}
+
+	.weekly-day-icon {
+		width: 24px;
+		height: 24px;
+	}
+}
+
+/* Larger desktops (1024px+) */
+@media (min-width: 1024px) {
+	body {
+		padding: 48px 0;
+	}
+
+	.app-wrap {
+		max-width: 560px;
+	}
+
+	.search-title {
+		font-size: 2rem;
+	}
+
+	.c1 {
+		font-size: 76px;
+	}
 }
